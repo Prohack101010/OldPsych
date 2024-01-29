@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  build:
+  buildAndroid:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +29,10 @@ jobs:
         haxelib git extension-vibration https://github.com/HaxeExtension/extension-vibration.git
 
     - name: Build Android Project
-      run: lime build android
+      run: haxelib run lime build android
 
-    - name: Upload Artifact
+    - name: Upload APK
       uses: actions/upload-artifact@v2
       with:
         name: android-apk
         path: export/release/android/bin
-        
