@@ -1,0 +1,39 @@
+name: PsychEngine Android Build
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Haxe and OpenFL
+      uses: skial/setup-haxe@v1
+      with:
+        haxe-version: 4.2.5
+        haxelib-version: latest
+        openfl-version: latest
+
+    - name: Install Dependencies
+      run: |
+        haxelib install all
+        haxelib git extension-android https://github.com/HaxeExtension/extension-android.git
+        haxelib git extension-googleplayservices https://github.com/HaxeExtension/extension-googleplayservices.git
+        haxelib git extension-iap https://github.com/HaxeExtension/extension-iap.git
+        haxelib git extension-share https://github.com/HaxeExtension/extension-share.git
+        haxelib git extension-vibration https://github.com/HaxeExtension/extension-vibration.git
+
+    - name: Build Android Project
+      run: lime build android
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: android-apk
+        path: export/release/android/bin
+        
