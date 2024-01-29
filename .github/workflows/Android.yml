@@ -22,13 +22,9 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        haxelib install all
-        haxelib git extension-android https://github.com/HaxeExtension/extension-android.git
-        haxelib git extension-googleplayservices https://github.com/HaxeExtension/extension-googleplayservices.git
-        haxelib git extension-iap https://github.com/HaxeExtension/extension-iap.git
-        haxelib git extension-share https://github.com/HaxeExtension/extension-share.git
-        haxelib git extension-vibration https://github.com/HaxeExtension/extension-vibration.git
-
+        haxelib install hmm --quiet
+        haxelib run hmm install --quiet
+          
     - name: Build Android Project
       run: haxelib run lime build android
 
